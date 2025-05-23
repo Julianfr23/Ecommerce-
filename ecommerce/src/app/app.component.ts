@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-declare var $:any;
-declare function HOMEINITTEMPLATE([]):any;
+//declare var $:any;
+//declare function HOMEINITTEMPLATE([]):any;
 
 @Component({
   selector: 'app-root',
@@ -10,9 +10,9 @@ declare function HOMEINITTEMPLATE([]):any;
 })
 export class AppComponent {
   title = 'ecommerce';
-  ngOnInit():void {
-    setTimeout(() => {
-      HOMEINITTEMPLATE($);
-    }, 50);
-  }
+ // ngOnInit():void {
+ //   setTimeout(() => {
+  //    HOMEINITTEMPLATE($);
+  //  }, 50);
+ // }
 }
