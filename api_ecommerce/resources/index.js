@@ -5,5 +5,5 @@ import Product from './Product'
 export default {
     User,
     Categorie,
-    Product
+    Product,
 }
