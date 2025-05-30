@@ -2,21 +2,21 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Toaster } from 'ngx-toast-notifications';
 import { NoticyAlertComponent } from 'src/app/componets/notifications/noticy-alert/noticy-alert.component';
-import { ProductService } from '../_services/product.service';
+import { SliderService } from '../_services/slider.service';
 
 @Component({
-  selector: 'app-delete-new-product',
-  templateUrl: './delete-new-product.component.html',
-  styleUrls: ['./delete-new-product.component.scss']
+  selector: 'app-delete-new-slider',
+  templateUrl: './delete-new-slider.component.html',
+  styleUrls: ['./delete-new-slider.component.scss']
 })
-export class DeleteNewProductComponent implements OnInit {
+export class DeleteNewSliderComponent implements OnInit {
 
-  @Output() ProductD: EventEmitter<any> = new EventEmitter();
-  @Input() product:any;
+  @Output() SliderD: EventEmitter<any> = new EventEmitter();
+  @Input() slider_selected:any;
 
   constructor(
     public modal: NgbActiveModal,
-    public productoService: ProductService,
+    public sliderService: SliderService,
     public toaster: Toaster,
   ) { }
 
@@ -25,9 +25,10 @@ export class DeleteNewProductComponent implements OnInit {
 
 
   delete(){
-    this.productoService.deleteProduct(this.product._id).subscribe((resp:any) => {
+    this.sliderService.deleteSlider(this.slider_selected._id).subscribe((resp:any) => {
       console.log(resp);
-      this.ProductD.emit("");
+      this.SliderD.emit("");
+      this.toaster.open(NoticyAlertComponent,{text:`success-'EL SLIDER  SE ELIMINO CORRECTAMENTE.'`});
       this.modal.close();
     }, (error) => {
       if(error.error){

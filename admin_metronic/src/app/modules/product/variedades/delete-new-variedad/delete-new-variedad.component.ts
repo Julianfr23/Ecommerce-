@@ -2,17 +2,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Toaster } from 'ngx-toast-notifications';
 import { NoticyAlertComponent } from 'src/app/componets/notifications/noticy-alert/noticy-alert.component';
-import { ProductService } from '../_services/product.service';
+import { ProductService } from '../../_services/product.service';
 
 @Component({
-  selector: 'app-delete-new-product',
-  templateUrl: './delete-new-product.component.html',
-  styleUrls: ['./delete-new-product.component.scss']
+  selector: 'app-delete-new-variedad',
+  templateUrl: './delete-new-variedad.component.html',
+  styleUrls: ['./delete-new-variedad.component.scss']
 })
-export class DeleteNewProductComponent implements OnInit {
+export class DeleteNewVariedadComponent implements OnInit {
 
-  @Output() ProductD: EventEmitter<any> = new EventEmitter();
-  @Input() product:any;
+  @Output() VariedadD: EventEmitter<any> = new EventEmitter();
+  @Input() variedad:any;
 
   constructor(
     public modal: NgbActiveModal,
@@ -25,9 +25,9 @@ export class DeleteNewProductComponent implements OnInit {
 
 
   delete(){
-    this.productoService.deleteProduct(this.product._id).subscribe((resp:any) => {
+    this.productoService.deleteVariedad(this.variedad._id).subscribe((resp:any) => {
       console.log(resp);
-      this.ProductD.emit("");
+      this.VariedadD.emit("");
       this.modal.close();
     }, (error) => {
       if(error.error){
