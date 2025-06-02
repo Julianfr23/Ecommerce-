@@ -87,6 +87,12 @@ const routes: Routes = [
           import('../modules/sliders/sliders.module').then(
             (m) => m.SlidersModule
           ),
+      },{
+        path: 'cupones',
+        loadChildren: () =>
+          import('../modules/cupone/cupone.module').then(
+            (m) => m.CuponeModule
+          ),
       },
       {
         path: '',
