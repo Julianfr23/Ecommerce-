@@ -75,8 +75,8 @@ const routes: Routes = [
           ),
       },
       {
-        path:'productos',
-         loadChildren: () =>
+        path: 'productos',
+        loadChildren: () =>
           import('../modules/product/product.module').then(
             (m) => m.ProductModule
           ),
@@ -87,11 +87,18 @@ const routes: Routes = [
           import('../modules/sliders/sliders.module').then(
             (m) => m.SlidersModule
           ),
-      },{
+      }, {
         path: 'cupones',
         loadChildren: () =>
           import('../modules/cupone/cupone.module').then(
             (m) => m.CuponeModule
+          ),
+      },
+      {
+        path: 'descuento',
+        loadChildren: () =>
+          import('../modules/discount/discount.module').then(
+            (m) => m.DiscountModule
           ),
       },
       {
