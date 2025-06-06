@@ -1,37 +1,37 @@
 import models from '../models'
 import resource from '../resources'
 export default {
-    list:async(req,res) => {
+    list: async (req, res) => {
         try {
 
-            var TIME_NOW  = req.query.TIME_NOW;
+            var TIME_NOW = req.query.TIME_NOW;
 
-            let Sliders = await models.Slider.find({state:1});
+            let Sliders = await models.Slider.find({ state: 1 });
 
             Sliders = Sliders.map((slider) => {
                 return resource.Slider.slider_list(slider);
             })
 
-            let Categories = await models.Categorie.find({state:1});
+            let Categories = await models.Categorie.find({ state: 1 });
 
             Categories = Categories.map((categorie) => {
                 return resource.Categorie.categorie_list(categorie);
             })
-            
-            let BestProducts = await models.Product.find({state: 2}).sort({"createdAt": -1});
+
+            let BestProducts = await models.Product.find({ state: 2 }).sort({ "createdAt": -1 });
 
             var ObjectBestProducts = [];
             for (const Product of BestProducts) {
-                let VARIEDADES = await models.Variedad.find({product: Product._id});
-                ObjectBestProducts.push(resource.Product.product_list(Product,VARIEDADES));
+                let VARIEDADES = await models.Variedad.find({ product: Product._id });
+                ObjectBestProducts.push(resource.Product.product_list(Product, VARIEDADES));
             }
 
-            let OursProducts = await models.Product.find({state: 2}).sort({"createdAt": 1});
+            let OursProducts = await models.Product.find({ state: 2 }).sort({ "createdAt": 1 });
 
             var ObjectOursProducts = [];
             for (const Product of OursProducts) {
-                let VARIEDADES = await models.Variedad.find({product: Product._id});
-                ObjectOursProducts.push(resource.Product.product_list(Product,VARIEDADES));
+                let VARIEDADES = await models.Variedad.find({ product: Product._id });
+                ObjectOursProducts.push(resource.Product.product_list(Product, VARIEDADES));
             }
             // OursProducts = OursProducts.map(async (product) => {
             //     let VARIEDADES = await models.Variedad.find({product: product._id});
@@ -40,15 +40,17 @@ export default {
 
             let FlashSale = await models.Discount.findOne({
                 type_campaign: 2,
-                start_date_num: {$lte: TIME_NOW},// start_date_num >= TIME_NOW
-                end_date_num: {$gte: TIME_NOW},// >=
+                start_date_num: { $lte: TIME_NOW },// start_date_num >= TIME_NOW
+                end_date_num: { $gte: TIME_NOW },// >=
             });
 
             let ProductList = [];
-            for (const product of FlashSale.products) {
-                var ObjecT = await models.Product.findById({_id: product._id});
-                let VARIEDADES = await models.Variedad.find({product: product._id});
-                ProductList.push(resource.Product.product_list(ObjecT,VARIEDADES));
+            if (FlashSale && FlashSale.products && FlashSale.products.length > 0) {
+                for (const product of FlashSale.products) {
+                    const ObjecT = await models.Product.findById({ _id: product._id });
+                    const VARIEDADES = await models.Variedad.find({ product: product._id });
+                    ProductList.push(resource.Product.product_list(ObjecT, VARIEDADES));
+                }
             }
             console.log(FlashSale);
             res.status(200).json({
@@ -61,7 +63,7 @@ export default {
             });
         } catch (error) {
             res.status(500).send({
-                message:"OCURRIO ERROR"
+                message: "OCURRIO ERROR"
             });
             console.log(error);
         }
