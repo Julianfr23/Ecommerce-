@@ -654,7 +654,7 @@
                                         </div>
                                         <h3 class="product-title">{{ product_selected.title }}</h3>
                                         <span class="price-amount" *ngIf="!product_selected.FlashSale">{{ product_selected.price_cop }} COP</span>
-                                        <span class="price-amount" *ngIf="product_selected.FlashSale"> <del>{{ product_selected.price_solecop }} COP</del> </span>
+                                        <span class="price-amount" *ngIf="product_selected.FlashSale"> <del>{{ product_selected.price_cop }} COP</del> </span>
                                         <span class="price-amount" *ngIf="product_selected.FlashSale"> {{ getCalNewPrice(product_selected) }} COP</span>
                                         <ul class="product-meta">
                                             <li><i class="fal fa-check"></i>In stock</li>
